@@ -25,15 +25,15 @@ TEST = "test"
 RARE = "rare"
 NEG = "neg"
 
-
+DEFUALT_HIDDEN = 100
+LSTM_LT = 0.001
+LSTM_WD = 0.0001
+LSTM_EPOCHS = 4
 # ------------------------------------------ Helper methods and classes --------------------------
 
 def get_available_device():
     """
-    Allows training on GPU if available. Can help with running things faster when a GPU with cuda is
-    available but not a most...
-    Given a device, one can use module.to(device)
-    and criterion.to(device) so that all the computations will be done on the GPU.
+    Allows training on GPU if available.
     """
     return torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -354,7 +354,6 @@ class LogLinear(nn.Module):
 def binary_accuracy(preds, y):
     """
     This method returns tha accuracy of the predictions, relative to the labels.
-    You can choose whether to use numpy arrays or tensors here.
     :param preds: a vector of predictions
     :param y: a vector of true labels
     :return: scalar value - (<number of accurate predictions> / <number of examples>)
@@ -428,10 +427,8 @@ def evaluate(model, data_iterator, criterion, lstm=False):
 
 def get_predictions_for_data(model, data_iter, lstm=False):
     """
-
     This function should iterate over all batches of examples from data_iter and return all of the models
-    predictions as a numpy ndarray or torch tensor (or list if you prefer). the prediction should be in the
-    same order of the examples returned by data_iter.
+    predictions.
     :param model: one of the models you implemented in the exercise
     :param data_iter: torch iterator as given by the DataManager
     :return:
@@ -514,9 +511,6 @@ DEFAULT_WD = 0.0001
 
 
 def train_log_linear_with_one_hot():
-    """
-    Here comes your code for training and evaluation of the log linear model with one hot representation.
-    """
     data_manager = DataManager(batch_size=DEFAULT_BATCH_SIZE,load_special=True)
     print("Training Loglin with one hot repr:")
     model = LogLinear(data_manager.get_input_shape()[0])
@@ -528,10 +522,6 @@ def train_log_linear_with_one_hot():
 
 
 def train_log_linear_with_w2v():
-    """
-    Here comes your code for training and evaluation of the log linear model with word embeddings
-    representation.
-    """
     print("Training Loglin with w2v:")
     data_manager = DataManager(data_type=W2V_AVERAGE,
                                batch_size=DEFAULT_BATCH_SIZE,
@@ -545,16 +535,9 @@ def train_log_linear_with_w2v():
     return train_accuracies, train_losses, val_accuracies, val_losses, test_results
 
 
-DEFUALT_HIDDEN = 100
-LSTM_LT = 0.001
-LSTM_WD = 0.0001
-LSTM_EPOCHS = 4
 
 
 def train_lstm_with_w2v():
-    """
-    Here comes your code for training and evaluation of the LSTM model.
-    """
     data_manager = DataManager(data_type=W2V_SEQUENCE,
                                batch_size=DEFAULT_BATCH_SIZE,
                                embedding_dim=W2V_EMBEDDING_DIM,
