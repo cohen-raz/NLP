@@ -1,6 +1,6 @@
 # NLP
 ### The School of Computer Science & Engineering at The Hebrew University of Jerusalem
-This exercise deals with comparing 3 different models for a simple sentiment analysis task, implemented using using PyTorch to train and test all 3 models.
+This exercise deals with comparing three different models for a simple sentiment analysis task, implemented using using PyTorch to train and test all 3 models.
 The dataset:  
 - The Sentiment Treebank dataset by Stanford.  
 *This dataset consists of sentences, taken from movie reviews, and their sentiment value.*
